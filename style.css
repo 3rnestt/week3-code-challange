@@ -1,0 +1,51 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 800px;
+  }
+  
+  .menu {
+    width: 30%;
+  }
+  
+  .details {
+    width: 65%;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .film {
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  
+  .film:hover {
+    background-color: #eee;
+  }
+  
+  .film.sold-out {
+    color: #ccc;
+    text-decoration: line-through;
+  }
+  
+  #movie-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #movie-details img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  #movie-details p {
+    margin: 0;
+  }
+  
