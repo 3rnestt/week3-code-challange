@@ -1,58 +1,74 @@
-// const endpointFilms = 'http://localhost:3000/films';
-// const endpointFilm = 'http://localhost:3000/films/1';
+// 1. Fetch movie data
+fetch("db.json")
+  .then(response => response.json())
+  .then(data => {
+    // 2. Extract details of the first movie
+    const movie = data.films[0];
+    const { poster, title, runtime, showtime, capacity, tickets_sold } = movie;
+    availableTickets = capacity - tickets_sold;
 
-// // DOM elements
-// const filmList = document.querySelector('#films');
-// const filmTitle = document.querySelector('#film-title');
-// const filmPoster = document.querySelector('#film-poster');
-// const filmRuntime = document.querySelector('#film-runtime');
-// const filmShowtime = document.querySelector('#film-showtime');
-// const filmTickets = document.querySelector('#film-tickets');
-// const buyButton = document.querySelector('#buy-button');
+    // 3. Set details in the HTML elements
+    document.getElementById('poster').src = poster;
+    document.getElementById('title').textContent = title;
+    document.getElementById('runtime').textContent = `${runtime} mins`;
+    document.getElementById('showtime').textContent = showtime;
+    document.getElementById('available-tickets').textContent = availableTickets;
 
-// // Fetch the list of films and populate the menu
-// fetch(endpointFilms)
-//   .then(response => response.json())
-//   .then(films => {
-//     filmList.innerHTML = '';
-//     films.forEach(film => {
-//       const li = document.createElement('li');
-//       li.textContent = film.title;
-//       li.classList.add('film', 'item');
-//       li.addEventListener('click', () => showFilmDetails(film));
-//       filmList.appendChild(li);
-//     });
-//   });
+    // 4. Create movie list
+    const filmsList = document.getElementById('films');
+    data.films.forEach(movie => {
+      const { id, title, poster, showtime } = movie;
+      const li = document.createElement('li');
+      li.innerHTML = `<img src="${poster}" alt="${title}"><div><h4>${title}</h4><p>Showtime: ${showtime}</p></div>`;
+      li.addEventListener('click', () => showMovieDetails(id));
+      filmsList.appendChild(li);
+        });
 
-// // Fetch the first film and show its details
-// fetch(endpointFilm)
-//   .then(response => response.json())
-//   .then(film => showFilmDetails(film));
+    // 5. Set up buy ticket button click event taking buyTicket as a callback
+    document.getElementById('buy-ticket').addEventListener('click', buyTicket);
+    })
+    .catch(error => {
+    console.log(error);
+    });
 
-// // Show the details of a film
-// function showFilmDetails(film) {
-//   filmTitle.textContent = film.title;
-//   filmPoster.src = film.poster;
-//   filmRuntime.textContent = `${film.runtime} minutes`;
-//   filmShowtime.textContent = `Showing at ${film.showtime}`;
-//   const availableTickets = film.capacity - film.tickets_sold;
-//   filmTickets.textContent = `${availableTickets} tickets available`;
-//   if (availableTickets === 0) {
-//     buyButton.disabled = true;
-//     buyButton.textContent = 'Sold Out';
-//   } else {
-//     buyButton.disabled = false;
-//     buyButton.textContent = 'Buy Ticket';
-//   }
-//   buyButton.removeEventListener('click', buyTicket);
-//   buyButton.addEventListener('click', () => buyTicket(film));
-// }
+    // buyTicket function decreases the number of available votes by one after every
+    // click of the Buy Ticket button. The button greys out (is disabled) 
+    // and becomes ineffective once the available votes reaches 0.
+    function buyTicket() {
+      if (availableTickets > 0) {
+        availableTickets--;
+        document.getElementById('available-tickets').textContent = availableTickets;
+        if (availableTickets === 0) {
+          const buyButton = document.getElementById('buy-ticket');
+          buyButton.textContent = 'Sold Out';
+          buyButton.disabled = true;
+        }
+      }}
+   
+    // Function to update the movie details
+    function updateMovieDetails(movie) {
+      const { poster, title, runtime, showtime, capacity, tickets_sold } = movie;
+      availableTickets = capacity - tickets_sold;
+      document.getElementById('poster').src = poster;
+      document.getElementById('title').textContent = title;
+      document.getElementById('runtime').textContent = `${runtime} mins`;
+      document.getElementById('showtime').textContent = showtime;
+      document.getElementById('available-tickets').textContent = availableTickets;
+    }
+    // Function to show movie details when a movie is clicked
+    function showMovieDetails(id) {
+      fetch("db.json")
+        .then(response => response.json())
+        .then(data => {
+          const movie = data.films.find(movie => movie.id === id);
+          if (movie) {
+            updateMovieDetails(movie);
+          }
+        })
+      .catch(error => console.error(error));
+}
 
-// // Buy a ticket for a film
-// function buyTicket(film) {
-//   const availableTickets = film.capacity - film.tickets_sold;
-//   if (availableTickets > 0) {
-//     film.tickets_sold++;
-//     showFilmDetails(film);
-//   }
-// }
+
+
+
+  
