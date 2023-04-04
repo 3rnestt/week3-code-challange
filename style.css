@@ -1,47 +1,118 @@
-h1{
-    text-align: center;
-}
-
-
-#current-movie {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-#current-movie img {
-    margin-right: 20px;
-    box-shadow: 0 80px 85px 0 rgba(0,0,0,0.2);
-    border-radius: 10px;
-    height: 500px;
-    width: 700px;
-}
-
-#films {
-    list-style-type: none;
+/* Reset default styles */
+* {
+    margin: 0;
     padding: 0;
-    text-align: left;
-    margin-left: 50px;
-}
-#films img{
-    border-radius: 10px;
-    height: 300px;
-    width: 300px;
-    box-shadow: 0 40px 45px 0 rgba(0,0,0,0.2);
-}
-img:hover{
-    opacity: 0.5;
-}
-#buy-ticket {
-    transition-duration: 0.4s;
-    border-radius: 8px;
-    width: 70px;
-    height: 50px;
+    box-sizing: border-box;
   }
   
-#buy-ticket:hover {
-    background-color:darkred;
-    color: white;
-    border-radius: 8px;
-    border: none;
+  /* Set background color and font styles for the entire page */
+  body {
+    background-color: #2a0202;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
   }
+  
+  /* Style the header */
+  h1 {
+    margin: 0;
+    padding: 1rem;
+    background-color: #471717;
+    color: #fff;
+  }
+  
+  /* Style the section containing the movie details */
+  #movies {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 5rem);
+    background-color: #e3b127;
+  }
+  
+  #movieDetails {
+    width: 50%;
+    padding: 2rem;
+    background-color: #695e0e;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  #movieDetails h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  #movieDetails p {
+    margin: 0;
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.2rem;
+    line-height: 1.5;
+  }
+  
+  /* Style the list of movie titles */
+  #listItems {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #69638d;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  #movieItems {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #movieItems li {
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    color: #333;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Style the selected movie title */
+  #movieItems .selected {
+    font-weight: bold;
+    color: #ff6b6b;
+  }
+  
+  /* Style the image */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style the loading spinner */
+  .loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 5rem);
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 5px solid #f2f2f2;
+    border-top-color: #333;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
